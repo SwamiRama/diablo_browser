@@ -61,10 +61,12 @@ task :deploy => :environment do
       queue "echo ..."
       queue "echo ..."
       queue "docker-compose run -e RAILS_ENV=production app rake db:migrate"
-      queue "docker-compose run -e RIALS_ENV=production app -d rake assets:precompile"
+      queue "mkdir -p tmp/sockets"
+      queue "mkdir -p tmp/pids"
+      # queue "docker-compose run -e RIALS_ENV=production app rake assets:precompile"
     end
     to :launch do
-      queue "docker-compose run -e RAILS_ENV=production app puma -e production -C config/puma.rb -b unix:///app/tmp/sockets/puma.sock"
+      queue "docker-compose run -e RAILS_ENV=production -d app puma -e production -C config/puma.rb -b unix:///app/tmp/sockets/puma.sock"
       queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
 
     end
