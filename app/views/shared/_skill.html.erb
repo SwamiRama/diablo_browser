@@ -1,0 +1,13 @@
+<table class="table-responsive table-striped skill">
+  <% skill.each do |s| %>
+  <tr>
+    <% unless s.count == 0 %>
+      <th>
+        <p class="text-right">
+          <%= link_to s[:skill][:name],  @tooltip.tooltip_url(session[:region], session[:locale_short], s[:skill][:tooltip_url]), data: { 'd3tooltip' => s[:skill][:tooltip_url] }, target: '_blank' %>
+        </p>
+      </th>
+    <% end  %>
+  </tr>
+  <% end %>
+</table>

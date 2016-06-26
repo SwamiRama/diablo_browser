@@ -1,0 +1,12 @@
+<table class="table-responsive table-striped" id="stats">
+  <% stats.each do |key, value| %>
+  <tr>
+    <th><%= key %></th>
+    <th>
+      <p class="text-right">
+        <%= value %>
+      </p>
+    </th>
+  </tr>
+  <% end %>
+</table>

@@ -1,0 +1,61 @@
+<%= javascript_include_tag "http://us.battle.net/d3/static/js/tooltips.js", "data-turbolinks-track" => true %>
+
+<table class="portrait centered">
+  <tr>
+    <% @career.heroes.each do |h| %>
+    <td class="center">
+      <%= link_to image_tag(@portrait.middle(h[:class], h[:gender])), heros_path(hero_id: h[:id], battle_tag: @career.battle_tag) %>
+    </td>
+    <td class="center">
+      <div class="name">
+        <%= link_to h[:name], heros_path(hero_id: h[:id], battle_tag: @career.battle_tag) %>
+      </div>
+      <div class="hardcore">
+        <% if h[:hardcore] %>
+        <div class="red">Hardcore</div>
+        <% end %>
+      </div>
+      <div class="seasonal">
+        <% if h[:seasonal] %>
+        <span class="small-seasonal-leaf"></span>
+        <% end %>
+      </div>
+    </td>
+    <% end %>
+  </tr>
+</table>
+<div class="row">
+  <h2>
+    <%= @hero.hero_class %>
+  </h2>
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="stats">
+        <%= render 'shared/hero_stats', stats: @hero.stats %>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="absolut-position" id="name">
+        <h1>
+          <%= @hero.name %>
+        </h1>
+      </div>
+
+      <%= image_tag @paperdoll.original(session[:region], @hero.hero_class, @hero.gender) %>
+      <table>
+        <% @hero.items.each do |item| %>
+        <tr>
+          <th>
+            <%= link_to (image_tag @item.large(item[1][:icon]), class: "#{item[0]} absolut-position"), @tooltip.tooltip_url(session[:region], session[:locale_short], item[1][:tooltip_params]).sub('/tooltip', '') ,data: {d3tooltip: @tooltip.tooltip_url(session[:region], session[:locale_short], item[1][:tooltip_params])+'?format=jsonp'}, target: '_blank' %>
+          </th>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+    <div class="col-lg-3">
+
+      <%= render 'shared/skill', skill: @hero[:skills][:active] %>
+
+    </div>
+  </div>
+</div>

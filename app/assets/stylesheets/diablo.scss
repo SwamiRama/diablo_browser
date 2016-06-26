@@ -1,0 +1,45 @@
+.row:first-child {
+  margin-left: 0;
+  margin-right: 0;
+}
+#loading-icon {
+  display: none;
+}
+.centered {
+  float: none;
+  margin: 0 auto;
+}
+.search_field {
+  margin-top: 20px;
+}
+body {
+  background: image-url('diablo_light.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.background {
+  /* RGBa with 0.6 opacity */
+  background: rgba(0, 0, 0, 0.6);
+  /* For IE 5.5 - 7*/
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+  /* For IE 8*/
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+  color: white;
+}
+.small-seasonal-leaf {
+  display: inline-block;
+  width: 15px;
+  height: 21px;
+  background: url("http://eu.battle.net/d3/static/images/profile/seasonal-leaf.png") -24px -2px no-repeat;
+}
+.large-seasonal-leaf {
+  display: inline-block;
+  width: 20px;
+  height: 27px;
+  background: url("http://eu.battle.net/d3/static/images/profile/seasonal-leaf.png") -2px -2px no-repeat;
+}
+.red {
+  color: red;
+}
