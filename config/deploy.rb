@@ -64,6 +64,7 @@ task :deploy => :environment do
       queue "mkdir -p tmp/sockets"
       queue "mkdir -p tmp/pids"
       queue "docker-compose run -e RIALS_ENV=production app rake assets:precompile"
+      queue "docker-compose run app chown -R 1000:1000 ."
     end
     to :launch do
       queue "docker-compose run -e RAILS_ENV=production -d app puma -e production -C config/puma.rb -b unix:///app/tmp/sockets/puma.sock"
