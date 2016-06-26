@@ -21,7 +21,7 @@ set :forward_agent, true
 # Put any custom mkdir's in here for when `mina setup` is ran.
 # For Rails apps, we'll make some of the shared paths that are shared between
 # all releases.
-task :setup => :environment do
+task :setup_nginx => :environment do
   scp_upload('config/nginx.conf', "#{deploy_to}/#{shared_path}/config/nginx.conf")
   invoke :'nginx:link'
   invoke :'nginx:restart'
@@ -63,7 +63,7 @@ task :deploy => :environment do
       queue "docker-compose run -e RAILS_ENV=production app rake db:migrate"
       queue "mkdir -p tmp/sockets"
       queue "mkdir -p tmp/pids"
-      # queue "docker-compose run -e RIALS_ENV=production app rake assets:precompile"
+      queue "docker-compose run -e RIALS_ENV=production app rake assets:precompile"
     end
     to :launch do
       queue "docker-compose run -e RAILS_ENV=production -d app puma -e production -C config/puma.rb -b unix:///app/tmp/sockets/puma.sock"
