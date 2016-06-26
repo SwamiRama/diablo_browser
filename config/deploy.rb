@@ -1,9 +1,7 @@
 require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
-require 'mina/puma'
 require 'mina/nginx'
-require 'mina/rbenv'
 require 'mina/scp'
 
 require 'figaro'
@@ -16,44 +14,14 @@ set :deploy_to, ENV['deploy_to']
 set :repository, ENV['repository']
 set :branch, ENV['branch']
 
-## Puma setup
-set :puma_socket, "#{deploy_to}/#{shared_path}/tmp/sockets/puma.sock"
-set :pumactl_socket, "#{deploy_to}/#{shared_path}/tmp/sockets/pumactl.sock"
-set :puma_pid, "#{deploy_to}/#{shared_path}/tmp/pids/puma.pid"
-set :puma_state, "#{deploy_to}/#{shared_path}/tmp/pids/puma.state"
-
-# Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
-# They will be linked in the 'deploy:link_shared_paths' step.
-set :shared_paths, ['config/application.yml', 'log', 'tmp/sockets', 'tmp/pids']
-
 set :user, ENV['deploy_user']
 set :port, ENV['port']
 set :forward_agent, true
-
-# This task is the environment that is loaded for most commands, such as
-# `mina deploy` or `mina rake`.
-task :environment do
-  invoke :'rbenv:load'
-end
 
 # Put any custom mkdir's in here for when `mina setup` is ran.
 # For Rails apps, we'll make some of the shared paths that are shared between
 # all releases.
 task :setup => :environment do
-  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/log"]
-  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/log"]
-
-  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/config"]
-  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/config"]
-
-  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/tmp/sockets"]
-  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/tmp/sockets"]
-
-  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/tmp/pids"]
-  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/tmp/pids"]
-
-  queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/config/application.yml'."]
-
   scp_upload('config/nginx.conf', "#{deploy_to}/#{shared_path}/config/nginx.conf")
   invoke :'nginx:link'
   invoke :'nginx:restart'
@@ -73,26 +41,32 @@ end
 desc "Deploys the current version to the server."
 task :deploy => :environment do
   to :before_hook do
-    # Put things to run locally before ssh
+    scp_upload 'config/application.yml', "#{deploy_to}/shared/config/application.yml", verbose: true
   end
   deploy do
-    # Put things that will set up an empty directory into a fully set-up
-    # instance of your project.
-    scp_upload('config/application.yml', "#{deploy_to}/#{shared_path}/config/application.yml")
-    scp_upload('config/application.yml', "#{deploy_to}/#{shared_path}/config/application.yml")
 
-    invoke :'git:clone'
-    invoke :'deploy:link_shared_paths'
-    invoke :'bundle:install'
-    invoke :'rails:db_migrate'
-    invoke :'rails:assets_precompile'
-    invoke :'deploy:cleanup'
+    in_directory "#{deploy_to}/current" do
+      queue "docker-compose down"
+    end
 
+    in_directory "#{deploy_to}" do
+      queue 'rm -rf current'
+      queue 'mkdir current'
+    end
+
+    in_directory "#{deploy_to}/current" do
+      invoke :'git:clone'
+      queue "cp #{deploy_to}/shared/config/application.yml #{deploy_to}/current/config/application.yml"
+      queue "docker-compose build"
+      queue "echo ..."
+      queue "echo ..."
+      queue "docker-compose run -e RAILS_ENV=production app rake db:migrate"
+      queue "docker-compose run -e RIALS_ENV=production app -d rake assets:precompile"
+    end
     to :launch do
-      queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
+      queue "docker-compose run -e RAILS_ENV=production app puma -e production -C config/puma.rb -b unix:///app/tmp/sockets/puma.sock"
       queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
-      invoke :'puma:start'
-      invoke :'puma:phased_restart'
+
     end
   end
 end
