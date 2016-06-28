@@ -1,1 +1,1 @@
-DIABLO_API_KEY: <%= ENV['diablo_api_key'] %>
+DIABLO_API_KEY: <%= ENV['DIABLO_API_KEY'] %>

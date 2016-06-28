@@ -1,29 +1,22 @@
+default: &default
+  adapter:  <%= ENV['ADAPTER'] %>
+  encoding: <%= ENV['ENCODING'] %>
+  database: <%= ENV['DATABASE'] %>
+  host:     <%= ENV['HOST'] %>
+  username: <%= ENV['USERNAME'] %>
+  password: <%= ENV['PASSWORD'] %>
+
 development:
-  adapter: <%= ENV['adapter'] %>
-  encoding: <%= ENV['encoding'] %>
-  database: <%= ENV['database'] %>
-  host: <%= ENV['host'] %>
-  username: <%= ENV['username'] %>
-  password: <%= ENV['password'] %>
+  <<: *default
   pool: 5
   timeout: 5000
 
 test:
-  adapter: <%= ENV['adapter'] %>
-  encoding: <%= ENV['encoding'] %>
-  database: <%= ENV['database'] %>
-  host: <%= ENV['host'] %>
-  username: <%= ENV['username'] %>
-  password: <%= ENV['password'] %>
+  <<: *default
   pool: 5
   timeout: 5000
 
 production:
-  adapter: <%= ENV['adapter'] %>
-  encoding: <%= ENV['encoding'] %>
-  database: <%= ENV['database'] %>
-  host: <%= ENV['host'] %>
-  username: <%= ENV['username'] %>
-  password: <%= ENV['password'] %>
+  <<: *default
   pool: 5
   timeout: 5000

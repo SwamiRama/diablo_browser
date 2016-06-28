@@ -1,1 +1,1 @@
-DiabloApi::Config.configure {|k| k = ENV['diablo_api_key'] }
+DiabloApi::Config.configure {|k| k = ENV['DIABLO_API_KEY'] }
