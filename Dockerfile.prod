@@ -18,6 +18,10 @@ COPY . ./
 ENV RAILS_ENV production
 ENV RACK_ENV production
 
+ENV ADAPTER postgresql
+
+ENV
+
 RUN bundle exec rake assets:precompile
 
 ENTRYPOINT ["bundle", "exec"]
