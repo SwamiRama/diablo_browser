@@ -17,10 +17,10 @@ COPY . ./
 
 ENV RAILS_ENV production
 ENV RACK_ENV production
-ARG SECRET_KEY_BASE
-ARG DEVISE_SECRET
-
 ENV ADAPTER postgresql
+ARG SECRET_KEY_BASE=9a0971fac510c85c69fea30a9c4
+ARG DEVISE_SECRET=9a0971fac510c85c69fea30a9c4c69fea30a9c4
+
 
 RUN bundle exec rake assets:precompile
 
