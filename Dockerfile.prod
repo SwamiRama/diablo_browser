@@ -17,6 +17,8 @@ COPY . ./
 
 ENV RAILS_ENV production
 ENV RACK_ENV production
+ARG SECRET_KEY_BASE
+ARG DEVISE_SECRET
 
 ENV ADAPTER postgresql
 
