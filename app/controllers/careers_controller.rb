@@ -1,5 +1,6 @@
 class CareersController < ApplicationController
   before_action :career
+  
   def show
     session[:battle_tag] = params[:battle_tag]
     @portrait = DiabloApi::Icons::Portrait

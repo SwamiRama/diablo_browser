@@ -1,16 +1,13 @@
 class ChatroomsController < ApplicationController
   before_action :authenticate_user!
 
-
   def index
     @chatroom = Chatroom.new
     @chatrooms = Chatroom.all
   end
 
   def new
-    if request.referrer.split("/").last == "chatrooms"
-      flash[:notice] = nil
-    end
+    flash[:notice] = nil if request.referrer.split('/').last == 'chatrooms'
     @chatroom = Chatroom.new
   end
 
@@ -27,9 +24,9 @@ class ChatroomsController < ApplicationController
       end
     else
       respond_to do |format|
-        flash[:notice] = {error: ["a chatroom with this topic already exists"]}
+        flash[:notice] = { error: ['a chatroom with this topic already exists'] }
         format.html { redirect_to new_chatroom_path }
-        format.js { render template: 'chatrooms/chatroom_error.js.erb'}
+        format.js { render template: 'chatrooms/chatroom_error.js.erb' }
       end
     end
   end
@@ -47,7 +44,7 @@ class ChatroomsController < ApplicationController
 
   private
 
-    def chatroom_params
-      params.require(:chatroom).permit(:topic)
-    end
+  def chatroom_params
+    params.require(:chatroom).permit(:topic)
+  end
 end

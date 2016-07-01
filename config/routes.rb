@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   resources :chatrooms, param: :slug
   resources :messages
 
-
   devise_for :users
 
   root 'diablo#index'

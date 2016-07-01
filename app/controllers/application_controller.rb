@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
-
   def set_locale
     session[:locale] = 'de_DE' if session[:locale].nil?
     session[:locale_short] = session[:locale][0..1]
@@ -28,6 +27,5 @@ class ApplicationController < ActionController::Base
       u.permit(:email, :username, :password, :password_confirmation)
     end
   end
-
 
 end
