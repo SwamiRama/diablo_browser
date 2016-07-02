@@ -18,7 +18,6 @@ class UsersController < ApplicationController
   end
 
   def finish_signup
-    # authorize! :update, @user
     if request.patch? && params[:user] # && params[:user][:email]
       if @user.update(user_params)
         @user.skip_reconfirmation!
