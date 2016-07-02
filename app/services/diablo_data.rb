@@ -26,6 +26,15 @@ class DiabloData
 
   private
 
+  def data
+    return (@data ||= career) if @hero_id.nil?
+    @data ||= hero
+  end
+
+  def data_expired?
+    data.updated_at < (Date.today - 1.day)
+  end
+
   def data_exists?
     return Career.exists?(['battle_tag ~* ?', @battle_tag]) if @hero_id.nil?
     Hero.exists?(id: @hero_id)
@@ -38,15 +47,6 @@ class DiabloData
 
   def hero
     @hero ||= Hero.find @hero_id
-  end
-
-  def data
-    return (@data ||= career) if @hero_id.nil?
-    @data ||= hero
-  end
-
-  def data_expired?
-    data.updated_at < (Date.today - 1.day)
   end
 
   def process_data
