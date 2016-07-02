@@ -13,11 +13,11 @@ class ApplicationController < ActionController::Base
   end
 
   def career
-    @career ||= DiabloData.perform(session[:region], session[:locale], params[:battle_tag])
+    @career = DiabloData.perform(session[:region], session[:locale], params[:battle_tag])
   end
 
   def hero
-    @hero ||= DiabloData.perform(session[:region], session[:locale], params[:battle_tag], params[:hero_id])
+    @hero = DiabloData.perform(session[:region], session[:locale], params[:battle_tag], params[:hero_id])
   end
 
   protected
