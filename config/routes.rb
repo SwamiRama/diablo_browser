@@ -4,13 +4,11 @@ Rails.application.routes.draw do
   resources :chatrooms, param: :slug
   resources :messages
 
-  devise_for :users
+  devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
 
   root 'diablo#index'
 
   get 'diablo/search'
-
-  get 'users', to: 'users#show'
 
   get 'careers', to: 'careers#show'
 
