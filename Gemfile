@@ -31,7 +31,6 @@ gem 'omniauth-facebook', '~> 4.0.0.rc1'
 
 gem 'diablo_api', '~> 1.0', '>= 1.0.1'
 
-gem 'binding_of_caller', '~> 0.7.2'
 group :development, :test do
   gem 'byebug', platform: :mri
 
@@ -52,6 +51,7 @@ end
 
 group :development do
   gem 'better_errors', '~> 2.1', '>= 2.1.1'
+  gem 'binding_of_caller', '~> 0.7.2'
 
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console'
