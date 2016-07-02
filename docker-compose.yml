@@ -4,6 +4,8 @@ services:
   app: &app_base
     build: .
     command: rails server -p 3000 -b '0.0.0.0'
+    env_file:
+      - .app.env
     volumes:
       - .:/app
       - data:/bundle

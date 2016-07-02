@@ -26,3 +26,4 @@ capybara-*.html
 nginx.conf
 pickle-email-*.html
 rerun.txt
+.app.env
