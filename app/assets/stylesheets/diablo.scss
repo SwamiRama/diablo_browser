@@ -10,7 +10,10 @@
   margin: 0 auto;
 }
 .search_field {
-  margin-top: 20px;
+  width: 200%;
+}
+#search_result {
+  width: 179%;
 }
 body {
   background: image-url('diablo_light.jpg') no-repeat center center fixed;

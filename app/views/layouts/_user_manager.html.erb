@@ -1,15 +1,18 @@
 <% if user_signed_in? %>
-<li>
-    <%= link_to "Edit", edit_user_registration_path %>
-</li>
-<li>
-    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-</li>
+  <li>
+      <img src="<%= open(current_user.image).base_uri.to_s %>" />
+  </li>
+  <li>
+      <%= link_to "Edit", edit_user_registration_path %>
+  </li>
+  <li>
+      <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+  </li>
 <% else %>
-<li>
-    <%= link_to "Login", user_session_path %>
-</li>
-<li>
-  <%= link_to "Registration", new_user_registration_path %>
-</li>
+  <li>
+      <%= link_to "Login", user_session_path %>
+  </li>
+  <li>
+      <%= link_to "Registration", new_user_registration_path %>
+  </li>
 <% end %>
