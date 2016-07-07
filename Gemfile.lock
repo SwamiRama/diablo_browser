@@ -65,7 +65,7 @@ GEM
       responders
       warden (~> 1.2.3)
     devise-bootstrap-views (0.0.8)
-    diablo_api (1.0.1)
+    diablo_api (1.1.0.beta.1)
     diff-lcs (1.2.5)
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
@@ -275,7 +275,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   devise (~> 4.1, >= 4.1.1)
   devise-bootstrap-views (~> 0.0.8)
-  diablo_api (~> 1.0, >= 1.0.1)
+  diablo_api (~> 1.0, >= 1.1.0.beta.1)
   figaro (~> 1.1, >= 1.1.1)
   guard (~> 2.14)
   guard-bundler (~> 2.1)

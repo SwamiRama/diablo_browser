@@ -29,7 +29,7 @@ gem 'devise', '~> 4.1', '>= 4.1.1'
 gem 'devise-bootstrap-views', '~> 0.0.8'
 gem 'omniauth-facebook', '~> 4.0.0.rc1'
 
-gem 'diablo_api', '~> 1.0', '>= 1.0.1'
+gem 'diablo_api', '~> 1.0', '>= 1.1.0.beta.1'
 
 group :development, :test do
   gem 'byebug', platform: :mri
