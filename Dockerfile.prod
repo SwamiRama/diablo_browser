@@ -1,4 +1,4 @@
-FROM ruby:2.3.1
+FROM ruby:2.3.3
 MAINTAINER jimmi@rl-hosting.de
 
 RUN   apt-get update && \
