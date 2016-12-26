@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
   <li>
-      <img src="<%= open(current_user.image).base_uri.to_s %>" />
+      <img src="<%= open(current_user.image).base_uri.to_s unless current_user.image.nil? %>" />
   </li>
   <li>
       <%= link_to "Edit", edit_user_registration_path %>
