@@ -25,7 +25,7 @@ gem 'pg', '~> 0.18.4'
 gem 'puma', '~> 3.0'
 gem 'redis', '~> 3.0'
 
-gem 'devise', '~> 4.1', '>= 4.1.1'
+gem 'devise', '~> 4.6'
 gem 'devise-bootstrap-views', '~> 0.0.8'
 gem 'omniauth-facebook', '~> 4.0.0.rc1'
 
