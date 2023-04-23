@@ -21,7 +21,7 @@ gem 'jbuilder', '~> 2.0'
 # gem 'bcrypt', '~> 3.1.7'
 
 ### Backend ###
-gem 'pg', '~> 0.18.4'
+#gem 'pg', '~> 0.18.4'
 gem 'puma', '~> 3.0'
 gem 'redis', '~> 3.0'
 
